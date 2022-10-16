@@ -14,7 +14,7 @@ this application is a javascript quiz build using html, css, and javascript. It 
 - [Questions](#questions)
 
 ## Installation
-to use this application, open the game.html file in your browser.
+to use this application, open the index.html file in your browser.
         
 ## Usage
 Answer each question carefully, if you choose the incorrect answer, 5 seconds will be shaved off of your remaining time. Finish the quiz to add your high score to the leaderboards.
