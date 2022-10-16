@@ -10,7 +10,7 @@
 
 <body>
     <div id="timer"></div>
-<div class="start-container"> 
+<div class="center-container"> 
     <button id="start-button">Click here to start the quiz</button>
 </div>
     <div id="question-container" class="hide">
@@ -20,17 +20,17 @@
         <div id="answer-buttons-element"></div>
 
     </div>
-    <div class="start-container">
+    <div class="center-container">
     <h4 id="score-card"></h4>
 </div>
 
-    <div class="hide"id="final-score">
-        <h1 id="final-score-value">Final Score: ${score}</h1>
+    <div class="center-container hide"id="final-score">
+        <h1 id="final-score-value"></h1>
         <form>
             <label for="initials"></label>
-            <input type="text" id="initials" placeholder="initials">
+            <input name="submit-initials"type="text" id="initials" placeholder="initials">
         </form>
-        <Button class="initials-button"id="add-score">Add Score to Scoreboard</Button>
+        <Button class="initials-button"id="add-score">Add to Scoreboard</Button>
     </div>
 
     

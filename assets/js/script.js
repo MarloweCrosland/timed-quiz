@@ -83,7 +83,7 @@ const answerButtonsElement = document.getElementById("answer-buttons-element");
 const startButton = document.getElementById("start-button");
 const questionContainer = document.getElementById("question-container");
 const scoreCard = document.getElementById("score-card");
-const finalScore = document.getElementById('final-score');
+const finalScore = document.getElementById("final-score");
 
 let currentQuestionIndex = 0;
 //start button functionality:
@@ -93,7 +93,6 @@ startButton.addEventListener("click", function startGame() {
     countdown();
     questionContainer.classList.remove("hide");
     setNextQuestion();
-
 });
 
 const questionPrompt = document.getElementById("question-prompt");
@@ -109,25 +108,19 @@ function setNextQuestion() {
 }
 
 const scoreBoard = document.getElementById("score-board");
-const scoreValue = document.getElementById("final-score-value")
+const scoreValue = document.getElementById("final-score-value");
 
 function gameOver() {
     //clear timer
-    timeLeft.classList.add('hide')
+    timeLeft.classList.add("hide");
     //hide scorekeeper
-    scoreCard.classList.add('hide');
+    scoreCard.classList.add("hide");
     //hide questions
     questionContainer.classList.add("hide");
     //display final score
-   finalScore.classList.remove('hide')
+    finalScore.classList.remove("hide");
     scoreValue.textContent = "Your final score is: " + scoreNum;
-
 }
-const submitScoreBtn = document.getElementById('add-score')
-function handleSetScoresBtn() {
-
-}
-
 
 function resetState() {
     //while a child exists in answer buttons, remove it
@@ -174,3 +167,39 @@ function selectAnswer(e, currentScore) {
         scoreCard.textContent = "Your current score is: " + scoreNum;
     }
 }
+const submitScoreBtn = document.getElementById('add-score');
+
+submitScoreBtn.addEventListener('click', function setStorage() {
+    event.preventDefault(); 
+    // takes user input of initials
+    var initialsInput = document.querySelector(
+        "input[name='submit-initials']"
+    ).value;
+    document.querySelector("input[name='submit-initials']").value = "";
+    // validation
+    if (!initialsInput || initialsInput.length > 4 || !isNaN(initialsInput)) {
+        alert(
+            "You need to fill out your intials! Please enter 4 letters or less."
+        );
+        return;
+    }
+    initialsInput = initialsInput.toUpperCase();
+    let highScoreDataObj = {
+        initials: initialsInput,
+        highScore: scoreNum,
+    };
+    // highScoreStorage takes all items in local storage (or if empty, creates an empty array), adds newest score and initials, sorts it
+    highScoreStorage = JSON.parse(localStorage.getItem("highscore")) || [];
+    highScoreStorage.push(highScoreDataObj);
+    highScoreStorage.sort(function (a, b) {
+        return b.highScore - a.highScore;
+    });
+    // stores sorted initials/high scores objects in an highscorestorage array, and sends to localstorage
+    localStorage.setItem("highscore", JSON.stringify(highScoreStorage));
+    window.location.assign("./highscores.html");
+  
+});
+
+
+
+
