@@ -1,0 +1,11 @@
+#timer {
+    background-color: chartreuse;
+    font-size: 4em;
+    border-radius: 3px;
+    padding-left: 5px;
+
+}
+
+.hide{
+    display: none;
+}
