@@ -11,8 +11,10 @@
 // THEN I can save my initials and score
 
 //TIMER FUNCTIONALITY-------------------------------
+
 const timeLeft = document.getElementById("timer");
 let secondsLeft = 60;
+
 //WHEN I click the start button, THEN a timer starts(The setInterval() Method)
 function countdown() {
     const timerInterval = setInterval(function () {
@@ -24,7 +26,7 @@ function countdown() {
             timeLeft.textContent = "Time is up!";
             // if time is up, show on score board content instead of "all done!"
             gameOver();
-            } 
+        }
     }, 1000);
 }
 
@@ -80,15 +82,18 @@ const questions = [
 const answerButtonsElement = document.getElementById("answer-buttons-element");
 const startButton = document.getElementById("start-button");
 const questionContainer = document.getElementById("question-container");
+const scoreCard = document.getElementById("score-card");
+const finalScore = document.getElementById('final-score');
 
 let currentQuestionIndex = 0;
 //start button functionality:
 //hides start button and sets next question.
 startButton.addEventListener("click", function startGame() {
-    console.log("started");
     startButton.classList.add("hide");
+    countdown();
     questionContainer.classList.remove("hide");
     setNextQuestion();
+
 });
 
 const questionPrompt = document.getElementById("question-prompt");
@@ -103,10 +108,26 @@ function setNextQuestion() {
     }
 }
 
+const scoreBoard = document.getElementById("score-board");
+const scoreValue = document.getElementById("final-score-value")
+
 function gameOver() {
-  console.log('game is over');
+    //clear timer
+    timeLeft.classList.add('hide')
+    //hide scorekeeper
+    scoreCard.classList.add('hide');
+    //hide questions
+    questionContainer.classList.add("hide");
+    //display final score
+   finalScore.classList.remove('hide')
+    scoreValue.textContent = "Your final score is: " + scoreNum;
 
 }
+const submitScoreBtn = document.getElementById('add-score')
+function handleSetScoresBtn() {
+
+}
+
 
 function resetState() {
     //while a child exists in answer buttons, remove it
@@ -134,9 +155,7 @@ function showQuestion(question) {
 
 //SCORE CARD=============================
 
-const scoreCard = document.getElementById('score-card');
 let scoreNum = 0;
-
 
 function selectAnswer(e, currentScore) {
     const selectedButton = e.target;
@@ -151,9 +170,7 @@ function selectAnswer(e, currentScore) {
         //if the answer selected is right, add 100 points to score and show next
         currentQuestionIndex++;
         setNextQuestion();
-        scoreNum += 100
+        scoreNum += 100;
         scoreCard.textContent = "Your current score is: " + scoreNum;
     }
 }
-
-countdown();

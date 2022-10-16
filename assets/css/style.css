@@ -1,11 +1,44 @@
 #timer {
-    background-color: chartreuse;
+    background-color:rgba(78, 149, 78, 0.758);
     font-size: 4em;
     border-radius: 3px;
     padding-left: 5px;
-
+    margin-bottom: 5px;
 }
 
 .hide{
     display: none;
+}
+
+#start-button {
+    background-color: rgba(78, 149, 78, 0.758);
+    border-radius: 5px;
+    width: 10vw;
+}
+
+#question-container {
+    background-color: lightsteelblue;
+    border-radius: 5px;
+    padding-left: 5vw;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+#answer-buttons-element {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.btn {
+    margin-top: 5px;
+    background-color: black;
+    border-color: blueviolet;
+    border-radius: 10px;
+    color: white;
+}
+
+.btn:hover {
+    background-color: blueviolet;
 }
