@@ -23,11 +23,8 @@ function countdown() {
             clearInterval(timerInterval);
             timeLeft.textContent = "Time is up!";
             // if time is up, show on score board content instead of "all done!"
-            // gameOver();
-            // } else if (questionCount >= questionSource.length + 1) {
-            //     clearInterval(timerInterval);
-            //     gameOver();
-        }
+            gameOver();
+            } 
     }, 1000);
 }
 
@@ -108,7 +105,7 @@ function setNextQuestion() {
 
 function gameOver() {
   console.log('game is over');
-  
+
 }
 
 function resetState() {
@@ -135,19 +132,27 @@ function showQuestion(question) {
     });
 }
 
+//SCORE CARD=============================
+
+const scoreCard = document.getElementById('score-card');
+let scoreNum = 0;
+
+
 function selectAnswer(e, currentScore) {
     const selectedButton = e.target;
-    const correct = selectedButton.dataset.correct;
+    // const correct = selectedButton.dataset.correct;
 
-    if (!selectedButton.correct) {
-        //if the answer selected is wrong subtract 5 seconds
+    if (!selectedButton.dataset.correct) {
+        //if the answer selected is wrong subtract 5 seconds and show next
         secondsLeft = secondsLeft - 5;
         currentQuestionIndex++;
         setNextQuestion();
     } else {
-        //if the answer selected is right, add 100 points to score
+        //if the answer selected is right, add 100 points to score and show next
         currentQuestionIndex++;
         setNextQuestion();
+        scoreNum += 100
+        scoreCard.textContent = "Your current score is: " + scoreNum;
     }
 }
 
