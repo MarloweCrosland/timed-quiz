@@ -10,11 +10,6 @@
 // WHEN the game is over
 // THEN I can save my initials and score
 
-//SCORE KEEPING-------------------------------------
-let currentScore = 0;
-const scoreDisplay = document.getElementById('score-display');
-scoreDisplay.textContent = "Your current score is: " + currentScore
-
 //TIMER FUNCTIONALITY-------------------------------
 const timeLeft = document.getElementById("timer");
 let secondsLeft = 60;
@@ -29,135 +24,131 @@ function countdown() {
             timeLeft.textContent = "Time is up!";
             // if time is up, show on score board content instead of "all done!"
             // gameOver();
-        // } else if (questionCount >= questionSource.length + 1) {
-        //     clearInterval(timerInterval);
-        //     gameOver();
+            // } else if (questionCount >= questionSource.length + 1) {
+            //     clearInterval(timerInterval);
+            //     gameOver();
         }
     }, 1000);
 }
-
-
 
 const questions = [
     {
         question: "What is Javascript?",
         answers: [
-          { text: 'A coffee shop', correct: false},
-          { text: 'An app for developers', correct: false},
-          { text: 'a programming language', correct: true},
-          { text: 'a coding environment', correct: false}
-        ]
+            { text: "A coffee shop", correct: false },
+            { text: "An app for developers", correct: false },
+            { text: "a programming language", correct: true },
+            { text: "a coding environment", correct: false },
+        ],
     },
     {
-        question: "What special character is used to end Javascript code lines?",
+        question:
+            "What special character is used to end Javascript code lines?",
         answers: [
-          { text: "An exclaimation point", correct: false},
-          { text: "A semicolon", correct: true },
-          { text: "a forward slash", correct: false },
-          { text: "a period", correct: false}
-        ]
+            { text: "An exclaimation point", correct: false },
+            { text: "A semicolon", correct: true },
+            { text: "a forward slash", correct: false },
+            { text: "a period", correct: false },
+        ],
     },
     {
         question: "Which of these can be used to create a timer?",
         answers: [
-        { text: "getElementbyID", correct: false },
-        { text: "setInterval", correct: true },
-        { text: "makeTimer", correct: false },
-        { text: "setTimeout", correct: false }
-        ]
+            { text: "getElementbyID", correct: false },
+            { text: "setInterval", correct: true },
+            { text: "makeTimer", correct: false },
+            { text: "setTimeout", correct: false },
+        ],
     },
     {
-      question: "Javascript has a shorthand version which is called...",
-      answers: [
-      { text: "jquery", correct: true },
-      { text: "jtrunc", correct: false },
-      { text: "jquick", correct: false },
-      { text: "jdot", correct: false }
-      ]
-  },
-  {
-    question: "Is javascript used for front end dev, back end, or both?",
-    answers: [
-    { text: "front end only", correct: false },
-    { text: "neither front nor back end", correct: false },
-    { text: "back end only", correct: false },
-    { text: "both front and back end", correct: true }
-    ]
-}
+        question: "Javascript has a shorthand version which is called...",
+        answers: [
+            { text: "jquery", correct: true },
+            { text: "jtrunc", correct: false },
+            { text: "jquick", correct: false },
+            { text: "jdot", correct: false },
+        ],
+    },
+    {
+        question: "Is javascript used for front end dev, back end, or both?",
+        answers: [
+            { text: "front end only", correct: false },
+            { text: "neither front nor back end", correct: false },
+            { text: "back end only", correct: false },
+            { text: "both front and back end", correct: true },
+        ],
+    },
 ];
 
-const answerButtonsElement = document.getElementById('answer-buttons-element');
-const startButton = document.getElementById('start-button');
-const questionContainer = document.getElementById('question-container');
+const answerButtonsElement = document.getElementById("answer-buttons-element");
+const startButton = document.getElementById("start-button");
+const questionContainer = document.getElementById("question-container");
 
 let currentQuestionIndex = 0;
 //start button functionality:
 //hides start button and sets next question.
-startButton.addEventListener('click', function startGame(){
-  console.log('started')
-  startButton.classList.add('hide');
-  questionContainer.classList.remove('hide');
-  setNextQuestion();
-
+startButton.addEventListener("click", function startGame() {
+    console.log("started");
+    startButton.classList.add("hide");
+    questionContainer.classList.remove("hide");
+    setNextQuestion();
 });
 
-
-const questionPrompt = document.getElementById('question-prompt');
-
+const questionPrompt = document.getElementById("question-prompt");
 
 function setNextQuestion() {
-  //clear buttons first
-  resetState();
-showQuestion(questions[currentQuestionIndex])
+    if (currentQuestionIndex < questions.length) {
+        //clear buttons first
+        resetState();
+        showQuestion(questions[currentQuestionIndex]);
+    } else {
+        gameOver();
+    }
+}
+
+function gameOver() {
+  console.log('game is over');
+  
 }
 
 function resetState() {
-  //while a child exists in answer buttons, remove it
-  while (answerButtonsElement.firstChild) {
-    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-  }
-}
-
-function showQuestion(question){
-  //show answer text and create buttons for each answer
-  questionPrompt.textContent = question.question
-  question.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
-    // if answer is correct add correct answer attribute
-    if (answer.correct) {
-      button.dataset.correct = answer.correct
+    //while a child exists in answer buttons, remove it
+    while (answerButtonsElement.firstChild) {
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
     }
-    //when button is clicked, select it as answer
-    button.addEventListener('click', selectAnswer)
-    answerButtonsElement.appendChild(button)
-  })
-
 }
 
-function selectAnswer(e) {
-const selectedButton = e.target;
-const correct = selectedButton.dataset.correct;
-
-if (!selectedButton.correct) {
-  //if the answer selected is wrong subtract 5 seconds
- secondsLeft= secondsLeft-5;
- currentQuestionIndex++
- setNextQuestion();
-} else {
-  //if the answer selected is right, add 100 points to score
-  currentQuestionIndex++
-  currentScore = currentScore + 100;
-
-  setNextQuestion();
+function showQuestion(question) {
+    //show answer text and create buttons for each answer
+    questionPrompt.textContent = question.question;
+    question.answers.forEach((answer) => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        // if answer is correct add correct answer attribute
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+        //when button is clicked, select it as answer
+        button.addEventListener("click", selectAnswer);
+        answerButtonsElement.appendChild(button);
+    });
 }
 
+function selectAnswer(e, currentScore) {
+    const selectedButton = e.target;
+    const correct = selectedButton.dataset.correct;
 
-
+    if (!selectedButton.correct) {
+        //if the answer selected is wrong subtract 5 seconds
+        secondsLeft = secondsLeft - 5;
+        currentQuestionIndex++;
+        setNextQuestion();
+    } else {
+        //if the answer selected is right, add 100 points to score
+        currentQuestionIndex++;
+        setNextQuestion();
+    }
 }
-
-
 
 countdown();
-
